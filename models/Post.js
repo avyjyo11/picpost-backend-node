@@ -1,6 +1,5 @@
 // const Sequelize = require("sequelize");
 const mongoose = require("../utils/dbconnect");
-const User = require("./User");
 const Schema = mongoose.Schema;
 
 const postSchema = new mongoose.Schema({
@@ -8,7 +7,11 @@ const postSchema = new mongoose.Schema({
   status: String,
   user: {
     type: Schema.Types.ObjectId,
-    ref: User
+    ref: "User"
+  },
+  likeCount: {
+    type: Number,
+    default: Math.floor(Math.random() * (30 - 10 + 1) + 10)
   },
   createdAt: { type: Date, default: Date.now }
 });

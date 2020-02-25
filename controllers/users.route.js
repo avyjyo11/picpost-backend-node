@@ -32,4 +32,12 @@ router
     });
   });
 
+router.route("/pop/:id").get(async (req, res, next) => {
+  const result = await userService.findByIdAndPopulate(req.params.id);
+  res.json({
+    msg: "one user list",
+    user: result
+  });
+})
+
 module.exports = router;

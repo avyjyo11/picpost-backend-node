@@ -12,8 +12,12 @@ exports.findOne = (data = {}) => {
   return User.findOne(data);
 };
 
-exports.findById = id => {
-  return User.findById(id);
+exports.findById = (id, pop = false) => {
+  if (pop) {
+    return User.findById(id).populate("likedPosts");
+  } else {
+    return User.findById(id);
+  }
 };
 
 exports.create = async data => {

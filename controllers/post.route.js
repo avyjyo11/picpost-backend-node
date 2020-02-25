@@ -29,9 +29,8 @@ router
     } catch (err) {
       next(err);
     }
-  })
+  })a
   .put(async (req, res, next) => {
-    console.log("controller");
     const result = await postService.updatePost(req.params.postid, req.body);
     res.json({
       result

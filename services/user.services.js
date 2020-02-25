@@ -1,5 +1,4 @@
 const userQuery = require("../queries/user.query");
-const postQuery = require("../queries/post.query");
 
 exports.findUsers = async data => {
   try {
@@ -13,6 +12,15 @@ exports.findUsers = async data => {
 exports.findById = async id => {
   try {
     const result = await userQuery.findById(id);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.findByIdAndPopulate = async id => {
+  try {
+    const result = await userQuery.findById(id, true);
     return result;
   } catch (err) {
     throw err;

@@ -2,14 +2,14 @@ const Comment = require("../models/Comment");
 
 exports.find = (data = {}) => {
   if (data === {}) {
-    return Comment.find().populate("post");
+    return Comment.find().populate("postid");
   } else {
-    return Comment.find(data).populate("post");
+    return Comment.find(data).populate("postid");
   }
 };
 
 exports.findOne = (data = {}) => {
-  return Comment.findOne(data).populate("user");
+  return Comment.findOne(data).populate("postid");
 };
 
 exports.create = async data => {
