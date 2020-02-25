@@ -29,7 +29,7 @@ router
     } catch (err) {
       next(err);
     }
-  })a
+  })
   .put(async (req, res, next) => {
     const result = await postService.updatePost(req.params.postid, req.body);
     res.json({
