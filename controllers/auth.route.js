@@ -6,21 +6,19 @@ const config = require("../configs/config");
 
 router
   .route("/login")
-  .post([check("password").isLength({ min: 6 })], async (req, res, next) => {
+  .post([check("password").isLength({ min: 4 })], async (req, res, next) => {
     try {
       //validation
       const errors = await validationResult(req);
       if (!errors.isEmpty()) {
         next({ msg: "ValidationError", body: errors.array() });
+        return;
       }
       //check username and password
-      const result = await authService.checkLogin(
+      const [isPasswordCorrect, userid] = await authService.checkLogin(
         req.body.username,
         req.body.password
       );
-
-      const isPasswordCorrect = result[0];
-      const userid = result[1];
 
       if (!isPasswordCorrect) {
         throw { status: 401, msg: "Password Incorrect" };
@@ -34,7 +32,7 @@ router
       res.status(201).json({
         msg: "User logIn successful",
         token: token,
-        userid: userid
+        userid: userid,
       });
     } catch (err) {
       next(err);
@@ -48,7 +46,7 @@ router
       let result = await authService.createAccount(req.body);
       res.status(201).json({
         msg: "New Account Created",
-        body: result
+        body: result,
       });
     } catch (err) {
       next({ status: 409, msg: "Account Already Exists", body: err });
